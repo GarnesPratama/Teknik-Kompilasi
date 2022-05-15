@@ -1,25 +1,33 @@
-from lib2to3.pgen2.token import EQUAL
 from sly import Lexer
 
 class BasicLexer(Lexer):
-    tokens = {NAME, NUMBER, STRING, IF, PRINT, THEN, ELSE, FOR, FUN, TO, ARROW, EQUAL,  }
+    tokens = {NAME, NUMBER, STRING, IF, PRINT, THEN, ELSE, FOR, FUN, TO, ARROW, EQEQ, PLUS, MINUS, TIMES, DIVIDE, LT, LE, GT, GE, NE}
     ignore = '\t '
     ignore_comment = r'\#.*'
 
+    literals = {'=', '(', ')', '{', '}' ',', ';'}
 
-    #definisi token
-    IF      = r'if'
-    PRINT   = r'print'
-    THEN    = r'then'
-    ELSE    = r'else'
-    FOR     = r'for'
-    FUN     = r'fun'
-    TO      = r'to'
+    #pendefinisian token
+    IF      = r'YEN'
+    PRINT   = r'NYETAK'
+    THEN    = r'BANJUR'
+    ELSE    = r'DADI'
+    FOR     = r'KANGGO'
+    FUN     = r'FUNGSI'
+    TO      = r'NGANTI'
     ARROW   = r'->'
     NAME    = r'[a-zA-Z_][a-zA-Z0-9_]*'
     STRING  = r'\".*?\"'
-    EQUAL    = r'=='
-
+    EQEQ    = r'=='
+    PLUS    = r'\+'
+    MINUS   = r'-'
+    TIMES   = r'\*'
+    DIVIDE  = r'/'
+    LE      = r'<='
+    LT      = r'<'
+    GE      = r'>='
+    GT      = r'>'
+    NE      = r'!='
 
     #token bilangan
     @_(r'\d+')

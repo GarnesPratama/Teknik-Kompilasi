@@ -7,6 +7,8 @@ class BasicParser(Parser):
     tokens = kelompok11_lexer.BasicLexer.tokens
   
     precedence = (
+        ('left', 'PLUS', 'MINUS'),
+        ('left', 'TIMES', 'DIVIDE'),
         ('right', 'UMINUS'),
     )
   
@@ -33,9 +35,9 @@ class BasicParser(Parser):
     def statement(self, p):
         return ('fun_call', p.NAME)
 
-    @_('expr EQUAL expr')
+    @_('expr EQEQ expr')
     def condition(self, p):
-        return ('condition_eqUAL', p.expr0, p.expr1)
+        return ('condition_eqeq', p.expr0, p.expr1)
 
     @_('var_assign')
     def statement(self, p):
@@ -53,7 +55,41 @@ class BasicParser(Parser):
     def statement(self, p):
         return (p.expr)
 
+    @_('expr PLUS expr')
+    def expr(self, p):
+        return ('add', p.expr0, p.expr1)
 
+    @_('expr MINUS expr')
+    def expr(self, p):
+        return ('sub', p.expr0, p.expr1)
+
+    @_('expr TIMES expr')
+    def expr(self, p):
+        return ('mul', p.expr0, p.expr1)
+
+    @_('expr DIVIDE expr')
+    def expr(self, p):
+        return ('div', p.expr0, p.expr1)
+
+    @_('expr LE expr')
+    def expr(self, p):
+        return ('Less_than_or_equal_to', p.expr0, p.expr1)
+
+    @_('expr GT expr')
+    def expr(self, p):
+        return ('Greater_than', p.expr0, p.expr1)
+
+    @_('expr LT expr')
+    def expr(self, p):
+        return ('Less_than', p.expr0, p.expr1)
+
+    @_('expr GE expr')
+    def expr(self, p):
+        return ('Greater_than_or_equal_to', p.expr0, p.expr1)
+
+    @_('expr NE expr')
+    def expr(self, p):
+        return ('condition_not_equal', p.expr0, p.expr1)
 
     @_('"-" expr %prec UMINUS')
     def expr(self, p):
@@ -76,12 +112,12 @@ class BasicParser(Parser):
         return ('print', p.STRING)
 
 if __name__ == '__main__':
-    lexer = kelompok11_lexer.BasicLexer()
+    lexer = pm_lexer.BasicLexer()
     parser = BasicParser()
     env = {}
     while True:
         try:
-            text = input('tes > ')
+            text = input('pm > ')
         except EOFError:
             break
         if text:
