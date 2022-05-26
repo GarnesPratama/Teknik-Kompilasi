@@ -1,2 +1,2 @@
-FUNGSI contoh() -> NYETAK "coba cetak fungsi"
+FUNGSI contoh() -> NYETAK "Kelompok 11"
 contoh()

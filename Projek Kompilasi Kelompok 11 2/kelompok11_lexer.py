@@ -26,7 +26,7 @@ class BasicLexer(Lexer):
     LE      = r'<='
     LT      = r'<'
     GE      = r'>='
-    GT      = r'>'
+    GT      = r'>'    
     NE      = r'!='
 
     #token bilangan
